@@ -79,8 +79,7 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
     console.log({ tx });
     displayResponse("Transaction sent.", tx.hash);
   } catch (error) {
-    displayResponse("Transaction Denied");
-    copyToClipboard("error");
+    displayResponse("Transaction Denied", "error");
   }
 }
 
@@ -91,8 +90,7 @@ async function signMessage(message) {
     console.log({ signature });
     displayResponse("Signature complete.", signature);
   } catch (error) {
-    displayResponse("Signature Denied");
-    copyToClipboard("error");
+    displayResponse("Signature Denied", "error");
   }
 }
 
@@ -103,8 +101,7 @@ async function signTypedMessage(types, domain, message) {
     console.log({ signature });
     displayResponse("Signature complete.", signature);
   } catch (error) {
-    displayResponse("Signature Denied");
-    copyToClipboard("error");
+    displayResponse("Signature Denied", "error");
   }
 }
 
