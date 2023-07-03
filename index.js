@@ -77,7 +77,7 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
       data: data ? data : "0x",
     });
     console.log({ tx });
-    displayResponse("Transaction sent.<br><br>Copy to clipboard then continue to App", tx.hash);
+    displayResponse("Transaction sent.", tx.hash);
   } catch (error) {
     displayResponse("Transaction Denied");
     copyToClipboard("error");
@@ -89,7 +89,7 @@ async function signMessage(message) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const signature = await signer.signMessage(message);
     console.log({ signature });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    displayResponse("Signature complete.", signature);
   } catch (error) {
     displayResponse("Signature Denied");
     copyToClipboard("error");
@@ -101,7 +101,7 @@ async function signTypedMessage(types, domain, message) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const signature = await signer._signTypedData(JSON.parse(domain), JSON.parse(types), JSON.parse(message))
     console.log({ signature });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    displayResponse("Signature complete.", signature);
   } catch (error) {
     displayResponse("Signature Denied");
     copyToClipboard("error");
@@ -116,7 +116,6 @@ async function copyToClipboard(response) {
     await new Promise((resolve) => setTimeout(resolve, 500));
     // copy tx hash to clipboard
     await navigator.clipboard.writeText(response);
-    document.getElementById("response-button").innerHTML = "Copied";
   } catch {
     // for metamask mobile android
     const input = document.createElement("input");
@@ -126,7 +125,6 @@ async function copyToClipboard(response) {
     input.select();
     document.execCommand("Copy");
     input.style = "visibility: hidden";
-    document.getElementById("response-button").innerHTML = "Copied";
   }
 }
 
@@ -137,9 +135,6 @@ function displayResponse(text, response) {
   responseText.className = "active";
 
   if (response) {
-    // display button to copy tx.hash or signature
-    const responseButton = document.getElementById("response-button");
-    responseButton.className = "active";
-    responseButton.onclick = () => copyToClipboard(response);
+    copyToClipboard(response);
   }
 }
