@@ -73286,12 +73286,14 @@ var _ethers = require("ethers");
 var _utils = require("ethers/lib/utils");
 let provider;
 let signer;
+let copyButtonNeeded;
 document.addEventListener("DOMContentLoaded", loadApp());
 async function loadApp() {
   provider = new _ethers.ethers.providers.Web3Provider(window.ethereum, "any");
   signer = provider.getSigner();
   if (!signer) window.location.reload();
   await requestAccounts();
+  copyButtonNeeded = (await getClipboardPermission()) === undefined ? true : false;
   processAction();
 }
 async function requestAccounts() {
@@ -73355,7 +73357,7 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
     console.log({
       tx
     });
-    displayResponse("Transaction sent.", tx.hash);
+    displayResponse(copyButtonNeeded ? "Transaction sent.<br><br>Copy to clipboard then continue to App" : "Transaction sent.", tx.hash);
   } catch (error) {
     displayResponse("Transaction Denied", "error");
   }
@@ -73367,7 +73369,7 @@ async function signMessage(message) {
     console.log({
       signature
     });
-    displayResponse("Signature complete.", signature);
+    displayResponse(copyButtonNeeded ? "Signature complete.<br><br>Copy to clipboard then continue to App" : "Signature complete.", signature);
   } catch (error) {
     displayResponse("Signature Denied", "error");
   }
@@ -73379,7 +73381,7 @@ async function signTypedMessage(types, domain, message) {
     console.log({
       signature
     });
-    displayResponse("Signature complete.", signature);
+    displayResponse(copyButtonNeeded ? "Signature complete.<br><br>Copy to clipboard then continue to App" : "Signature complete.", signature);
   } catch (error) {
     displayResponse("Signature Denied", "error");
   }
@@ -73392,6 +73394,7 @@ async function copyToClipboard(response) {
     await new Promise(resolve => setTimeout(resolve, 500));
     // copy tx hash to clipboard
     await navigator.clipboard.writeText(response);
+    document.getElementById("response-button").innerHTML = "Copied";
   } catch {
     // for metamask mobile android
     const input = document.createElement("input");
@@ -73401,6 +73404,31 @@ async function copyToClipboard(response) {
     input.select();
     document.execCommand("Copy");
     input.style = "visibility: hidden";
+    document.getElementById("response-button").innerHTML = "Copied";
+  }
+}
+async function getClipboardPermission() {
+  try {
+    const permissionState = await navigator.permissions.query({
+      name: "clipboard-write"
+    });
+    if (permissionState) {
+      // document.execCommand(‘cut’/‘copy’) is allowed from outside a user-generated event handler as well.
+      return permissionState.state;
+    }
+  } catch {
+    // In case of Firefox
+  }
+  return undefined;
+}
+async function writeToClipboard(response) {
+  if (copyButtonNeeded) {
+    // display button to copy tx.hash or signature
+    const responseButton = document.getElementById("response-button");
+    responseButton.className = "active";
+    responseButton.onclick = () => copyToClipboard(response);
+  } else {
+    copyToClipboard(response);
   }
 }
 function displayResponse(text, response) {
@@ -73409,8 +73437,8 @@ function displayResponse(text, response) {
   responseText.innerHTML = text;
   responseText.className = "active";
   if (response) {
-    copyToClipboard(response);
+    writeToClipboard(response);
   }
 }
 },{"regenerator-runtime/runtime":"KA2S","ethers":"iS6H","ethers/lib/utils":"if8b"}]},{},["Focm"], null)
-//# sourceMappingURL=/game-web3wallet/game-web3wallet.3e98fe42.js.map
+//# sourceMappingURL=/game-web3wallet/game-web3wallet.b372cb35.js.map
