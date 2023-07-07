@@ -73289,22 +73289,22 @@ let signer;
 let copyButtonNeeded;
 document.addEventListener("DOMContentLoaded", loadApp());
 async function loadApp() {
+  if (window.location.search.length > 0) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reloaded = urlParams.get("reloaded");
+    if (reloaded === null) {
+      // It always reloads the page one time to ensure that the Metamask is correctly unlocked in case of the browser's newly opened.
+      return setTimeout(function () {
+        window.location.replace(window.location.href + '&reloaded=true');
+      }, 3000);
+    }
+  }
   provider = new _ethers.ethers.providers.Web3Provider(window.ethereum, "any");
   signer = provider.getSigner();
   if (!signer) window.location.reload();
-  await requestAccounts();
+  await provider.send("eth_requestAccounts", []);
   copyButtonNeeded = (await getClipboardPermission()) === undefined ? true : false;
   processAction();
-}
-async function requestAccounts() {
-  const p1 = provider.send("eth_requestAccounts", []);
-  const p2 = new Promise((_r, rej) => setTimeout(() => rej("timed out"), 20000)); // timeout of 20 seconds
-
-  try {
-    await Promise.race([p1, p2]);
-  } catch (error) {
-    window.location.reload();
-  }
 }
 function processAction() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -73359,7 +73359,7 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
     });
     displayResponse(copyButtonNeeded ? "Transaction sent.<br><br>Copy to clipboard then continue to App" : "Transaction sent.", tx.hash);
   } catch (error) {
-    displayResponse("Transaction Denied", "error");
+    displayResponse(copyButtonNeeded ? "Transaction Denied.<br><br>Copy to clipboard then continue to App" : "Transaction Denied", "error");
   }
 }
 async function signMessage(message) {
@@ -73371,7 +73371,7 @@ async function signMessage(message) {
     });
     displayResponse(copyButtonNeeded ? "Signature complete.<br><br>Copy to clipboard then continue to App" : "Signature complete.", signature);
   } catch (error) {
-    displayResponse("Signature Denied", "error");
+    displayResponse(copyButtonNeeded ? "Signature Denied.<br><br>Copy to clipboard then continue to App" : "Signature Denied", "error");
   }
 }
 async function signTypedMessage(types, domain, message) {
@@ -73383,7 +73383,7 @@ async function signTypedMessage(types, domain, message) {
     });
     displayResponse(copyButtonNeeded ? "Signature complete.<br><br>Copy to clipboard then continue to App" : "Signature complete.", signature);
   } catch (error) {
-    displayResponse("Signature Denied", "error");
+    displayResponse(copyButtonNeeded ? "Signature Denied.<br><br>Copy to clipboard then continue to App" : "Signature Denied", "error");
   }
 }
 async function copyToClipboard(response) {
@@ -73441,4 +73441,4 @@ function displayResponse(text, response) {
   }
 }
 },{"regenerator-runtime/runtime":"KA2S","ethers":"iS6H","ethers/lib/utils":"if8b"}]},{},["Focm"], null)
-//# sourceMappingURL=/game-web3wallet/game-web3wallet.b372cb35.js.map
+//# sourceMappingURL=/game-web3wallet/game-web3wallet.d7af49cd.js.map
