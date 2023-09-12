@@ -73367,7 +73367,7 @@ async function signMessage(message) {
     console.log({
       signature
     });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    if (message === "Please sign this message to log in with your wallet address.") displayResponse("Signature complete.<br><br>Copy to clipboard and sign the next message in metamask to login", signature);else displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
   } catch (error) {
     displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
   }
@@ -73421,4 +73421,4 @@ function displayResponse(text, response) {
   }
 }
 },{"regenerator-runtime/runtime":"KA2S","ethers":"iS6H","ethers/lib/utils":"if8b"}]},{},["Focm"], null)
-//# sourceMappingURL=/game-web3wallet/game-web3wallet.3c07da90.js.map
+//# sourceMappingURL=/game-web3wallet/game-web3wallet.2ea79934.js.map
