@@ -2,6 +2,9 @@
   font-family: Euclid, sans-serif;
 }
 
+body {
+  background-color:  black;
+}
 .center {
   display: block;
   text-decoration: none;
@@ -13,8 +16,8 @@
 }
 
 #logo {
-  max-width: 125px;
-  max-height: 125px;
+  max-width: 225px;
+  max-height: 225px;
   margin: 15px auto;
 }
 
@@ -39,7 +42,7 @@
   transition-duration: 200ms;
   opacity: 0;
   visibility: hidden;
-  background-color: white;
+  background-color: blue;
   border: 1px solid #037dd6;
   font-weight: bold;
   color: #037dd6;

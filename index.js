@@ -88,7 +88,10 @@ async function signMessage(message) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const signature = await signer.signMessage(message);
     console.log({ signature });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    if (message === "Please sign this message to log in with your wallet address.")
+      displayResponse("Signature complete.<br><br>Copy to clipboard and sign the next message in metamask to login", signature);
+    else
+      displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
   } catch (error) {
     displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
   }
