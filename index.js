@@ -77,9 +77,9 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
       data: data ? data : "0x",
     });
     console.log({ tx });
-    displayResponse("Transaction sent.<br><br>Copy to clipboard then continue to App", tx.hash);
+    displayResponse("Transaction sent.<br><br>Copy to clipboard and return to Astro Café", tx.hash);
   } catch (error) {
-    displayResponse("Transaction Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Transaction Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 
@@ -91,9 +91,9 @@ async function signMessage(message) {
     if (message === "Please sign this message to log in with your wallet address.")
       displayResponse("Signature complete.<br><br>Copy to clipboard and sign the next message in metamask to login", signature);
     else
-      displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+      displayResponse("Signature complete.<br><br>Copy to clipboard and return to Astro Café", signature);
   } catch (error) {
-    displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Signature Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 
@@ -102,9 +102,9 @@ async function signTypedMessage(types, domain, message) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const signature = await signer._signTypedData(JSON.parse(domain), JSON.parse(types), JSON.parse(message))
     console.log({ signature });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    displayResponse("Signature complete.<br><br>Copy to clipboard and return to Astro Café", signature);
   } catch (error) {
-    displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Signature Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 
