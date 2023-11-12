@@ -73355,9 +73355,9 @@ async function sendTransaction(chainId, to, value, gasLimit, gasPrice, data) {
     console.log({
       tx
     });
-    displayResponse("Transaction sent.<br><br>Copy to clipboard then continue to App", tx.hash);
+    displayResponse("Transaction sent.<br><br>Copy to clipboard and return to Astro Café", tx.hash);
   } catch (error) {
-    displayResponse("Transaction Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Transaction Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 async function signMessage(message) {
@@ -73367,9 +73367,9 @@ async function signMessage(message) {
     console.log({
       signature
     });
-    if (message === "Please sign this message to log in with your wallet address.") displayResponse("Signature complete.<br><br>Copy to clipboard and sign the next message in metamask to login", signature);else displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    if (message === "Please sign this message to log in with your wallet address.") displayResponse("Signature complete.<br><br>Copy to clipboard and sign the next message in metamask to login", signature);else displayResponse("Signature complete.<br><br>Copy to clipboard and return to Astro Café", signature);
   } catch (error) {
-    displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Signature Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 async function signTypedMessage(types, domain, message) {
@@ -73379,9 +73379,9 @@ async function signTypedMessage(types, domain, message) {
     console.log({
       signature
     });
-    displayResponse("Signature complete.<br><br>Copy to clipboard then continue to App", signature);
+    displayResponse("Signature complete.<br><br>Copy to clipboard and return to Astro Café", signature);
   } catch (error) {
-    displayResponse("Signature Denied.<br><br>Copy to clipboard then continue to App", "error");
+    displayResponse("Signature Denied.<br><br>Copy to clipboard and return to Astro Café", "error");
   }
 }
 async function copyToClipboard(response) {
@@ -73421,4 +73421,4 @@ function displayResponse(text, response) {
   }
 }
 },{"regenerator-runtime/runtime":"KA2S","ethers":"iS6H","ethers/lib/utils":"if8b"}]},{},["Focm"], null)
-//# sourceMappingURL=/game-web3wallet/game-web3wallet.2ea79934.js.map
+//# sourceMappingURL=/game-web3wallet/game-web3wallet.963549d1.js.map
